@@ -1,0 +1,7 @@
+[
+  {"title":"Dhoni","subtitle":"Runs","ranges":[50,100,150,200],"measures":[120,170],"markers":[150]},
+  {"title":"Virat","subtitle":"Runs","ranges":[50,100,150,200],"measures":[121,123],"markers":[126]},
+  {"title":"Rohit","subtitle":"Runs, average","ranges":[50,100,150,200],"measures":[100,120],"markers":[150]},
+  {"title":"Dhawan","subtitle":"Runs","ranges":[50,100,150,200],"measures":[100,165],"markers":[120]},
+  {"title":"Ajinkya","subtitle":"Runs","ranges":[50,100,150,200],"measures":[100,165],"markers":[144]}
+]
