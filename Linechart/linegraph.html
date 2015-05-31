@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            
+            
+            function drawChart() {
+            
+            $.getJSON("data.json", function(data) {
+                          console.log("My data: " + data[0].name);
+              var mydata = google.visualization.arrayToDataTable
+                  ([['X', 'Y', {'type': 'string', 'role': 'style'}],
+                    data[0].latestRecords.forEach(function(d) {
+                   [d.runs, d.date, null],
+                 });
+              ]);
+            
+              var options = {
+                legend: 'none',
+                hAxis: { minValue: 0, maxValue: 9 },
+                curveType: 'function',
+                pointSize: 7,
+                dataOpacity: 0.3
+              };
+            
+              var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+              chart.draw(mydata, options);
+                });
+                  }
+        </script>
+    </head>
+    <body>
+        <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    </body>
+</html>

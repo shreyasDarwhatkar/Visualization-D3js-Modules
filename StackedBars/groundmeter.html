@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ground Statistics</title>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["gauge"]});
+            google.setOnLoadCallback(read_json);
+            function read_json() {
+                    $.getJSON("speed.json", function(data) {
+                        
+                       var mydata = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['Bat 1st', data[0].avgB1Win],
+                ['Bat 2nd', data[1].avg2Win]
+                ]); 
+                
+                
+                
+                
+               var options = {
+          width: 900, height: 450,
+          redFrom: data[0].lowestScore, redTo: data[0].lowestScore + 75,
+          yellowFrom:data[0].lowestScore + 75, yellowTo: data[0].lowestScore + 105,
+          greenFrom:data[0].highestScore - 75, greenTo: data[0].highestScore,
+          minorTicks: 5,max: data[0].highestScore,
+          min: data[0].lowestScore
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(mydata, options);
+        
+        setInterval(function() {
+          mydata.setValue(0, 1, data[0].avgB1Win + Math.round(20 * Math.random()));
+          chart.draw(mydata, options);
+        }, 500);
+        setInterval(function() {
+          mydata.setValue(1, 1, data[1].avg2Win + Math.round(20 * Math.random()));
+          chart.draw(mydata, options);
+        }, 500);
+        
+          });
+                    
+                     
+                
+                }
+        </script>
+    </head>
+    <body>
+        <div align="center">
+        <div align="center"> <h1>Ground Statistics </h1></div>
+        <div id="chart_div"  align="center"></div>
+        </div>
+    </body>
+</html>
