@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test - Reading data in JSON format</title>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(read_json);
+            function read_json() {
+                    $.getJSON("bowling.json", function(data) {
+                        
+                       var mydata = google.visualization.arrayToDataTable([
+                ['Bowlers', 'Economy','Average Wickets' ,'Number of Wickets' ],
+                [data[0].name, data[0].eco, data[0].wktavg, data[0].wkt],
+                [data[1].name, data[1].eco, data[1].wktavg, data[1].wkt],
+                [data[2].name, data[2].eco, data[2].wktavg, data[2].wkt],
+                ]); 
+                
+                
+                
+                
+                 var options = {
+        width: 1000,
+        height: 550,
+        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+        isStacked: true,
+
+        // Displays tooltip on selection.
+        // tooltip: { trigger: 'selection' }, 
+      };
+                
+                 var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(mydata, options);
+                    });
+                    
+                     
+                
+                }
+        </script>
+    </head>
+    <body onload="read_json();">
+        <div id="chart_div"></div>
+    </body>
+</html>
