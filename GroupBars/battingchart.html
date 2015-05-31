@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test - Reading data in JSON format</title>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1.1", {packages:["bar"]});
+            google.setOnLoadCallback(read_json);
+            
+            var mydata =""
+            function read_json() {
+                $.getJSON("data.json", function(data) {
+                    console.log("My data: " + data[0].name);
+                   var mydata = google.visualization.arrayToDataTable([
+            ['Runs Scored', data[0].name, data[1].name, data[2].name],
+            ['Score above 120', data[0].win120, data[1].win120, data[2].win120],
+            ['Score above 100', data[0].win100, data[1].win100, data[2].win100],
+            ['Score above 75', data[0].win75, data[1].win75, data[2].win75],
+            ]); 
+            console.log(mydata);
+            
+            
+            
+            var options = {
+                chart: {
+                  title: 'Individual Batting Performance',
+                  subtitle: 'Leading his Team to Win',
+                },
+                bars: 'horizontal' // Required for Material Bar Charts.
+              };
+            
+              var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+            
+              chart.draw(mydata, options);
+                });
+                
+                 
+            
+            }
+        </script>
+    </head>
+    <body onload="read_json();">
+        <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+    </body>
+</html>

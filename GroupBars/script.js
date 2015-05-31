@@ -11,15 +11,15 @@ var Y_AXIS_LABEL = config.yAxisLabel;
 
 var GROUPS = config.xAxis;
 
-var BARS = [ 
-      config.yAxis0,
-      config.yAxis1,
-      config.yAxis2,
-      config.yAxis3,
-      config.yAxis4,
-      config.yAxis5,
-      config.yAxis6
-    ];
+var BARS = [
+    config.yAxis0,
+    config.yAxis1,
+    config.yAxis2,
+    config.yAxis3,
+    config.yAxis4,
+    config.yAxis5,
+    config.yAxis6
+];
 
 var margin = {
     top: 20,
@@ -27,53 +27,53 @@ var margin = {
     bottom: 30,
     left: 40
 },
-width = config.width - margin.left - margin.right,
-height = config.height - margin.top - margin.bottom;
+    width = config.width - margin.left - margin.right,
+    height = config.height - margin.top - margin.bottom;
 
-var x0 = d3.scale.ordinal().rangeRoundBands([ 0, width ], .1);
+var x0 = d3.scale.ordinal().rangeRoundBands([0, width], .1);
 
 var x1 = d3.scale.ordinal();
 
-var y = d3.scale.linear().range([ height, 0 ]);
+var y = d3.scale.linear().range([height, 0]);
 
 // var color = d3.scale.category10();
 var color = d3.scale.ordinal()
-              .range([
-                config.color0,
-                config.color1,
-                config.color2,
-                config.color3,
-                config.color4,
-                config.color5,
-                config.color6
-              ]);
+    .range([
+        config.color0,
+        config.color1,
+        config.color2,
+        config.color3,
+        config.color4,
+        config.color5,
+        config.color6
+    ]);
 
 var xAxis = d3.svg.axis().scale(x0).orient("bottom");
 
 var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(d3.format(".2s"));
 
 var svg = d3.select("#canvas").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 data.forEach(function(d) {
-    d.bars = BARS.map(function(name) {
-        return {
-            name: name,
-            value: +d[name]
-        };
+        d.bars = BARS.map(function(name) {
+                return {
+                    name: name,
+                    value: +d[name]
+                };
+            });
     });
-});
 x0.domain(data.map(function(d) {
-    return d[GROUPS];
-}));
-x1.domain(BARS).rangeRoundBands([ 0, x0.rangeBand() ]);
-y.domain([ 0, d3.max(data, function(d) {
-    return d3.max(d.bars, function(d) {
-        return d.value;
-    });
-}) ]);
+            return d[GROUPS];
+        }));
+x1.domain(BARS).rangeRoundBands([0, x0.rangeBand()]);
+y.domain([0, d3.max(data, function(d) {
+                return d3.max(d.bars, function(d) {
+                        return d.value;
+                    });
+            })]);
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")").call(xAxis);
@@ -85,33 +85,33 @@ svg.append("g")
     .attr("dy", ".71em")
     .style("text-anchor", "end")
     .text(Y_AXIS_LABEL);
-    
+
 var groups = svg.selectAll(".groups")
     .data(data).enter().append("g")
     .attr("class", "g")
     .attr("transform", function(d) {
-    return "translate(" + x0(d[GROUPS]) + ",0)";
-});
+        return "translate(" + x0(d[GROUPS]) + ",0)";
+    });
 groups.selectAll("rect").data(function(d) {
-    return d.bars;
-}).enter().append("rect")
-.attr("width", x1.rangeBand()).attr("x", function(d) {
-    return x1(d.name);
-}).attr("y", function(d) {
-    return y(d.value);
-}).attr("height", function(d) {
-    return height - y(d.value);
-}).style("fill", function(d) {
-    console.log(color(d.name))
-    return color(d.name);
-});
+        return d.bars;
+    }).enter().append("rect")
+    .attr("width", x1.rangeBand()).attr("x", function(d) {
+        return x1(d.name);
+    }).attr("y", function(d) {
+        return y(d.value);
+    }).attr("height", function(d) {
+        return height - y(d.value);
+    }).style("fill", function(d) {
+        console.log(color(d.name))
+        return color(d.name);
+    });
 var legend = svg.selectAll(".legend")
     .data(BARS.slice()).enter()
     .append("g")
     .attr("class", "legend")
     .attr("transform", function(d, i) {
-    return "translate(-450," + i * 20 + ")";
-});
+        return "translate(-450," + i * 20 + ")";
+    });
 legend.append("rect")
     .attr("x", width - 18)
     .attr("width", 18)
@@ -122,5 +122,5 @@ legend.append("text")
     .attr("dy", ".35em")
     .style("text-anchor", "end")
     .text(function(d) {
-    return d;
-});
+        return d;
+    });
