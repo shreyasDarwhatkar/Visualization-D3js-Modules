@@ -8,22 +8,21 @@
             google.load("visualization", "1", {packages:["corechart"]});
             google.setOnLoadCallback(read_json);
             function read_json() {
-                    $.getJSON("bowling.json", function(data) {
-                        
-                       var mydata = google.visualization.arrayToDataTable([
-                ['Bowlers', 'Economy','Average Wickets' ,'Number of Wickets' ],
-                [data[0].name, data[0].eco, data[0].wktavg, data[0].wkt],
-                [data[1].name, data[1].eco, data[1].wktavg, data[1].wkt],
-                [data[2].name, data[2].eco, data[2].wktavg, data[2].wkt],
+                    $.getJSON("data.json", function(data) {
+                        console.log(data[0]);
+                var mydata = google.visualization.arrayToDataTable([
+               
+                ['Team', data[0].bowlingStr,data[0].b1str,data[0].batStr,data[0].runRate,data[0].b2str],
+                [data[1].team, data[0].bowlingPercent,data[0].B1AvgWinRate,data[0].batPercent,data[0].runRatePercent,data[0].B2AvgWinRate]
                 ]); 
                 
                 
                 
                 
                  var options = {
-        width: 1000,
-        height: 550,
-        legend: { position: 'top', maxLines: 3, textStyle: {color: 'black', fontSize: 16 } },
+        width: 1200,
+        height: 750,
+        
         isStacked: true,
 
         // Displays tooltip on selection.
