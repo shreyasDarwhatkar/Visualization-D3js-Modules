@@ -10,13 +10,13 @@
             
             var mydata =""
             function read_json() {
-                $.getJSON("data.json", function(data) {
+                $.getJSON("batting.json", function(data) {
                     console.log("My data: " + data[0].name);
                    var mydata = google.visualization.arrayToDataTable([
             ['Runs Scored', data[0].name, data[1].name, data[2].name],
-            ['Score above 120', data[0].win120, data[1].win120, data[2].win120],
             ['Score above 100', data[0].win100, data[1].win100, data[2].win100],
             ['Score above 75', data[0].win75, data[1].win75, data[2].win75],
+            ['Score above 50', data[0].win50, data[1].win50, data[2].win50],
             ]); 
             console.log(mydata);
             
